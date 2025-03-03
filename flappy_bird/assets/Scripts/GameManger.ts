@@ -99,7 +99,8 @@ export class GameManger extends Component {
         this.gameReadyUI.onDestroy();
 
         this._currentState = GameState.Over;
-        GameOverUI.instance.show(GameData.getScore(), 100);
+        GameOverUI.instance.show(GameData.getScore(), GameData.getBestScore());
+        GameData.saveScore();
     }
 
     addScore(count: number = 1) {

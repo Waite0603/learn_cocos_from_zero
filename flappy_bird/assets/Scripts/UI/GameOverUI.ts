@@ -28,19 +28,24 @@ export class GameOverUI extends Component {
         this.node.active = true;
         this.curScoreLabel.string = curScore.toString();
         this.bestScoreLabel.string = bestScrore.toString();
-        // if(curScore>bestScrore){
-        //     this.newSprite.active = true;
-        // }else{
-        //     this.newSprite.active = false;
-        // }
+        if (curScore > bestScrore) {
+            this.newSprite.active = true;
+        } else {
+            this.newSprite.active = false;
+        }
 
-        // //0-9 
-        // const index = curScore/10;//1.2
-        // let indexInt = Math.floor(index);
-        // if(indexInt>3){
-        //     indexInt = 3;
-        // }
-        // this.medalArray[indexInt].active=true;
+        //0-9 
+        const index = curScore / 5;
+        let indexInt = Math.floor(index);
+        if (indexInt > 3) {
+            indexInt = 3;
+        }
+
+        for (let i = 0; i < this.medalArray.length; i++) {
+            this.medalArray[i].active = false
+        }
+
+        this.medalArray[indexInt].active = true;
 
     }
 
