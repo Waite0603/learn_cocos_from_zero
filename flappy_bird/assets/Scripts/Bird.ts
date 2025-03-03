@@ -31,6 +31,13 @@ export class Bird extends Component {
 
     onDestroy() {
         input.off(Input.EventType.TOUCH_START, this.onTouchStart, this);
+
+        // 注销单个碰撞体的回调函数
+        let collider = this.getComponent(Collider2D);
+        if (collider) {
+            collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+            collider.off(Contact2DType.END_CONTACT, this.onEndContact, this);
+        }
     }
 
     onTouchStart() {
@@ -46,12 +53,27 @@ export class Bird extends Component {
     onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         console.log(otherCollider.tag);
     }
+
+
     onEndContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         // 只在两个碰撞体结束接触时被调用一次
         console.log('onEndContact');
     }
 
+    // 控制开始状态
+    public enableControl() {
+        this.rgd2D.enabled = true;
+        this._canControl = true;
+    }
+
+    public disableControl() {
+        this.rgd2D.enabled = false;
+        this._canControl = false;
+    }
+
     update(deltaTime: number) {
+        if (this._canControl == false) return;
+
         this.node.angle -= this.rotateSpeed * deltaTime;
 
         if (this.node.angle < -60) {
