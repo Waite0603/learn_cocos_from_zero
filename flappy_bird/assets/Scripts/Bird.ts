@@ -1,4 +1,6 @@
 import { _decorator, Collider2D, Component, Contact2DType, Input, input, IPhysics2DContact, Node, RigidBody2D, Vec2 } from 'cc';
+import { Tags } from './Tags';
+import { GameManger } from './GameManger';
 const { ccclass, property } = _decorator;
 
 @ccclass('Bird')
@@ -51,13 +53,16 @@ export class Bird extends Component {
 
 
     onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        console.log(otherCollider.tag);
+        if (otherCollider.tag == Tags.LAND || otherCollider.tag == Tags.PIPE) {
+            GameManger.instance.toOver();
+        }
     }
 
 
     onEndContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        // 只在两个碰撞体结束接触时被调用一次
-        console.log('onEndContact');
+        if (otherCollider.tag == Tags.PIPE_MIDDLE) {
+            GameManger.instance.addScore();
+        }
     }
 
     // 控制开始状态
@@ -69,6 +74,12 @@ export class Bird extends Component {
     public disableControl() {
         this.rgd2D.enabled = false;
         this._canControl = false;
+    }
+
+    // 禁用控制不禁用刚体
+    public disableControlOnly() {
+        this._canControl = false;
+        this.rgd2D.enabled = true;
     }
 
     update(deltaTime: number) {
