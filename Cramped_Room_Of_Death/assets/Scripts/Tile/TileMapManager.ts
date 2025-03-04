@@ -2,14 +2,16 @@ import { _decorator, Component, Layers, Node, resources, Sprite, SpriteFrame, UI
 const { ccclass, property } = _decorator
 import { TileManager } from './TileManager'
 import { createUINode } from '../Utils'
-import { DataMangerInstance } from '../../Runtime/DataManager'
+import DataManger from '../../Runtime/DataManager'
+import ResourceManager from '../../Runtime/ResourceManager'
 
 @ccclass('TileMapManager')
 export class TileMapManager extends Component {
   async init() {
-    const { mapInfo } = DataMangerInstance
+    const { mapInfo } = DataManger.Instance
     // 加载资源
-    const spriteFrames = await this.loadRes()
+    const spriteFrames = await ResourceManager.Instance.loadDir('texture/tile/tile')
+
     console.log(spriteFrames)
 
     // 遍历生成地图
@@ -38,18 +40,4 @@ export class TileMapManager extends Component {
     }
   }
 
-  loadRes(): Promise<SpriteFrame[]> {
-    // 使用 Promise 封装加载资源
-    return new Promise((resolve, reject) => {
-      resources.loadDir('texture/tile/tile', SpriteFrame, function (err, assets) {
-        if (err) {
-          reject(err)
-
-          return
-        } else {
-          resolve(assets)
-        }
-      })
-    })
-  }
 }
