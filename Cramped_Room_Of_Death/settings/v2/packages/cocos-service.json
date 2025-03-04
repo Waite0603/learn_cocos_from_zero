@@ -16,7 +16,13 @@
       "config_id": "ea7fed",
       "config_name": "Default",
       "config_remarks": "",
-      "services": []
+      "services": [
+        {
+          "service_id": "550",
+          "enable": false,
+          "param": {}
+        }
+      ]
     }
   ],
   "__version__": "3.0.7"

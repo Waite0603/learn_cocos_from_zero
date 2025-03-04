@@ -3,6 +3,7 @@
     "__type__": "cc.animation.AnimationGraph",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_native": "",
     "_layers": [
       {
@@ -18,10 +19,17 @@
     },
     "name": "",
     "weight": 1,
-    "mask": null
+    "mask": null,
+    "additive": false,
+    "_stashes": {}
   },
   {
     "__type__": "cc.animation.StateMachine",
+    "__editorExtras__": {
+      "name": "",
+      "id": "c75695e2-cd04-4e56-b426-811179249799",
+      "clone": null
+    },
     "_states": [
       {
         "__id__": 3
@@ -31,6 +39,9 @@
       },
       {
         "__id__": 5
+      },
+      {
+        "__id__": 6
       }
     ],
     "_transitions": [],
@@ -46,14 +57,79 @@
   },
   {
     "__type__": "cc.animation.State",
+    "__editorExtras__": {
+      "name": "",
+      "id": "b0e20099-a173-4b03-845c-393ed7447a2b",
+      "clone": null,
+      "centerX": -125,
+      "centerY": 0
+    },
     "name": "Entry"
   },
   {
     "__type__": "cc.animation.State",
+    "__editorExtras__": {
+      "name": "",
+      "id": "d1f175ed-69ff-46b3-93a3-75045cc4a675",
+      "clone": null,
+      "centerX": 125,
+      "centerY": 0
+    },
     "name": "Exit"
   },
   {
     "__type__": "cc.animation.State",
+    "__editorExtras__": {
+      "name": "",
+      "id": "6443e904-fd1a-410c-8965-9bb346dfb0d0",
+      "clone": null,
+      "centerX": 125,
+      "centerY": 0
+    },
     "name": "Any"
+  },
+  {
+    "__type__": "cc.animation.Motion",
+    "__editorExtras__": {
+      "name": "",
+      "id": "b858e5cb-2064-4dad-a72c-354a4545e367",
+      "clone": null,
+      "centerX": -51.5,
+      "centerY": -70.59375
+    },
+    "name": "idle",
+    "_components": [],
+    "motion": {
+      "__id__": 7
+    },
+    "speed": 1,
+    "speedMultiplier": "",
+    "speedMultiplierEnabled": false,
+    "transitionInEventBinding": {
+      "__id__": 8
+    },
+    "transitionOutEventBinding": {
+      "__id__": 9
+    }
+  },
+  {
+    "__type__": "cc.animation.ClipMotion",
+    "__editorExtras__": {
+      "name": "",
+      "id": "0d46add0-17f0-4779-af71-5d4454d1828b",
+      "clone": null
+    },
+    "clip": {
+      "__uuid__": "fde61789-4fdb-4b58-b76e-e8e508b8d770",
+      "__expectedType__": "cc.AnimationClip"
+    }
+  },
+  {
+    "__type__": "cc.animation.AnimationGraphEventBinding",
+    "methodName": ""
+  },
+  {
+    "__type__": "cc.animation.AnimationGraphEventBinding",
+    "methodName": ""
   }
 ]
