@@ -6,6 +6,7 @@ import DataManger  from '../../Runtime/DataManager'
 import { TILE_HEIGHT, TILE_WIDTH } from '../Tile/TileManager'
 import EventManager from '../../Runtime/EventManager'
 import { EVENT_ENUM } from '../../Enum'
+import { PlayerManager } from '../Player/PlayerManager'
 const { ccclass, property } = _decorator
 
 @ccclass('BattleManager')
@@ -48,6 +49,7 @@ export class BattleManager extends Component {
         DataManger.Instance.mapColumnCount = this.level.mapInfo[0].length || 0
 
         this.generateTileMap()
+        this.generatePlayer()
       }
     }
 
@@ -66,7 +68,14 @@ export class BattleManager extends Component {
 
       // 屏幕适配
       this.adaptPosition()
+    }
 
+    // 生成玩家
+    generatePlayer() {
+      const player = createUINode('Player')
+      player.setParent(this.stage)
+      const playManager = player.addComponent(PlayerManager)
+      playManager.init()
     }
 
     // 清空舞台
@@ -79,11 +88,6 @@ export class BattleManager extends Component {
     nextLevel() {
       DataManger.Instance.levelIndex = DataManger.Instance.levelIndex + 1
       this.initLevel()
-    }
-
-    // 上一关
-    prevLevel() {
-      console.log('prevLevel')
     }
 
     // 屏幕适配
