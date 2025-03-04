@@ -1,7 +1,7 @@
-import { _decorator, Component, Layers, Node, resources, Sprite, SpriteFrame, UITransform } from 'cc'
+import { _decorator, Component, Layers, Node, random, resources, Sprite, SpriteFrame, UITransform } from 'cc'
 const { ccclass, property } = _decorator
 import { TileManager } from './TileManager'
-import { createUINode } from '../Utils'
+import { createUINode, randomByRange } from '../Utils'
 import DataManger from '../../Runtime/DataManager'
 import ResourceManager from '../../Runtime/ResourceManager'
 
@@ -28,7 +28,13 @@ export class TileMapManager extends Component {
         // 新建节点
         const node = createUINode()
 
-        const imgSrc = `tile (${item.src})`
+        let number = item.src
+        // 如果 number = 1 / 5 / 9 随机
+        if ((number === 1 || number === 5 || number === 9) && i % 2 === 0 && j % 2 === 0) {
+          number += randomByRange(0, 4)
+        }
+
+        const imgSrc = `tile (${number})`
         const spriteFrame = spriteFrames.find(item => item.name === imgSrc) || spriteFrames[0]
 
         // 获取TileManager实例并调用实例方法

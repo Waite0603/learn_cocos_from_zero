@@ -11,8 +11,12 @@ export default class DataManger extends Singleton {
   mapInfo: Array<Array<ITile>>
   mapRowCount: number
   mapColumnCount: number
+  levelIndex: number = 1
+
+  // reset
+  reset() {
+    this.mapInfo = []
+    this.mapRowCount = 0
+    this.mapColumnCount = 0
+  }
 }
-
-// const DataMangerInstance = DataManger.Instance
-
-// console.log('DataMangerInstance', DataMangerInstance)

@@ -1,4 +1,6 @@
 import level1 from './level1'
+import level2 from './level2'
+import level3 from './level3'
 
 import { DIRECTION_ENUM, ENTITY_TYPE_ENUM, ENTITY_STATE_ENUM, TILE_TYPE_ENUM } from '../Enum/index'
 
@@ -32,7 +34,9 @@ export interface ISpikes {
 }
 
 const levels: Record<string, ILevel> = {
-  level1
+  level1,
+  level2,
+  level3
 }
 
 export default levels

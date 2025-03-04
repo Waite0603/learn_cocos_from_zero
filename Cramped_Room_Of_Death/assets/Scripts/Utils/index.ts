@@ -15,3 +15,11 @@ export const createUINode = (name: string = '') => {
 
   return node
 }
+
+
+/***
+ * 生成指定范围随机数
+ * @param start
+ * @param end
+ */
+export const randomByRange = (start: number, end: number) => Math.floor(Math.random() * (end - start) + start)

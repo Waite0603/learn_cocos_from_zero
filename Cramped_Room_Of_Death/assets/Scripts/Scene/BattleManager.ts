@@ -4,6 +4,8 @@ import { createUINode } from '../Utils'
 import levels, { ILevel } from '../../Levels'
 import DataManger  from '../../Runtime/DataManager'
 import { TILE_HEIGHT, TILE_WIDTH } from '../Tile/TileManager'
+import EventManager from '../../Runtime/EventManager'
+import { EVENT_ENUM } from '../../Enum'
 const { ccclass, property } = _decorator
 
 @ccclass('BattleManager')
@@ -12,16 +14,33 @@ export class BattleManager extends Component {
     level: ILevel
     stage: Node
 
+    // 防止多次注册方法
+    private eventRegistered: boolean = false
+
+    onLoad() {
+      // 绑定事件到事件中心
+      if (!this.eventRegistered) {
+        EventManager.Instance.on(EVENT_ENUM.NEXT_LEVEL, this.nextLevel, this)
+        this.eventRegistered = true
+      }
+    }
+
+    onDestroy() {
+      // 移除事件
+      EventManager.Instance.off(EVENT_ENUM.NEXT_LEVEL, this.nextLevel)
+      this.eventRegistered = false
+    }
+
     start() {
       this.initLevel()
     }
 
     initLevel () {
-      const level = levels['level1']
-
-      console.log('level', level)
+      const level = levels[`level${DataManger.Instance.levelIndex}`]
 
       if (level) {
+
+        if(this.stage) this.clearStage()
         this.level = level
 
         DataManger.Instance.mapInfo = this.level.mapInfo
@@ -48,6 +67,23 @@ export class BattleManager extends Component {
       // 屏幕适配
       this.adaptPosition()
 
+    }
+
+    // 清空舞台
+    clearStage() {
+      this.stage.destroyAllChildren()
+      DataManger.Instance.reset()
+    }
+
+    // 下一关
+    nextLevel() {
+      DataManger.Instance.levelIndex = DataManger.Instance.levelIndex + 1
+      this.initLevel()
+    }
+
+    // 上一关
+    prevLevel() {
+      console.log('prevLevel')
     }
 
     // 屏幕适配
